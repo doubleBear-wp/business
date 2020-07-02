@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.changjiu.dao.Business99Dao">
+    <!--void insert(Business99Data business99Data)-->
+    <insert id="insert" parameterType="com.changjiu.bean.Business99Data">
+        insert into business99_data(name) values(#{name})
+    </insert>
+</mapper>
