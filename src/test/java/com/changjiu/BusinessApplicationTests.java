@@ -93,6 +93,9 @@ class BusinessApplicationTests {
         System.out.println(business99);
     }
 
-
+    @Test
+    public void test6(){
+        System.out.println("github");
+    }
 
 }
