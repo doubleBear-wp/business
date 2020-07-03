@@ -95,7 +95,7 @@ class BusinessApplicationTests {
 
     @Test
     public void test6(){
-        System.out.println("github");
+        System.out.println("idea");
     }
 
 }
