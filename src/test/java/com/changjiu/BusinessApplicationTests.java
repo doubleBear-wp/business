@@ -96,6 +96,7 @@ class BusinessApplicationTests {
     @Test
     public void test6(){
         System.out.println(1);
+        System.out.println("你不拉我试试能推上来不？");
     }
 
 }
