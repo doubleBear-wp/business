@@ -95,7 +95,8 @@ class BusinessApplicationTests {
 
     @Test
     public void test6(){
-        System.out.println("idea");
+        System.out.println("好奇怪");
+        
     }
 
 }
