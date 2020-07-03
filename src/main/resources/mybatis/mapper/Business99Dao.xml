@@ -13,7 +13,7 @@
 
 
     <!--void insertAll(List<Business99> dataList)-->
-    <insert id="insertAll" parameterType="com.changjiu.bean.Business99">
+    <insert id="insertAll">
         insert into t_business99(brand,car_series,car_type,region,price,create_time,update_time
         )values
        <foreach collection="dataList" item="data" separator=",">
@@ -31,7 +31,10 @@
 
     <!--Business99 selectById(int id)-->
     <select id="selectById" resultType="com.changjiu.bean.Business99">
-        select * from t_business99 where id = #{id}
+        select * from t_business99 where 1 = 1
+        <if test="id != null">
+            and id = #{id}
+        </if>
     </select>
 
 
