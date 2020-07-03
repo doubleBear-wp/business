@@ -1,6 +1,9 @@
 package com.changjiu.servece;
 
+import com.changjiu.bean.Business99;
 import com.changjiu.bean.Business99Data;
+
+import java.util.List;
 
 /**
  * @author doubleBear
@@ -10,4 +13,5 @@ public interface Business99Service {
 
     void save(Business99Data business99Data);
 
+    void saveAll(List<Business99> dataList);
 }

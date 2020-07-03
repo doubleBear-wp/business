@@ -5,7 +5,41 @@
 
 <mapper namespace="com.changjiu.dao.Business99Dao">
     <!--void insert(Business99Data business99Data)-->
-    <insert id="insert" parameterType="com.changjiu.bean.Business99Data">
+    <!--parameterType可以不写，因为mybatis可以通过TypeHandler推断出传入的具体参数类型-->
+    <insert id="insert">
         insert into business99_data(name) values(#{name})
     </insert>
+
+
+
+    <!--void insertAll(List<Business99> dataList)-->
+    <insert id="insertAll" parameterType="com.changjiu.bean.Business99">
+        insert into t_business99(brand,car_series,car_type,region,price,create_time,update_time
+        )values
+       <foreach collection="dataList" item="data" separator=",">
+           (
+           #{data.brand},
+           #{data.carSeries},
+           #{data.carType},
+           #{data.region},
+           #{data.price},
+           #{data.createTime},
+           #{data.updateTime}
+           )
+       </foreach>
+    </insert>
+
+    <!--Business99 selectById(int id)-->
+    <select id="selectById" resultType="com.changjiu.bean.Business99">
+        select * from t_business99 where id = #{id}
+    </select>
+
+
+    <!--个人定制的返回结果映射-->
+    <resultMap id="customized" type="com.changjiu.bean.Business99">
+        <id column="id" property="id"></id>
+        <result column="brand" property="brand"></result>
+        <result column="car_type" property="carSeries"></result>
+    </resultMap>
+
 </mapper>

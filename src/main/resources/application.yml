@@ -5,5 +5,12 @@ spring:
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
 mybatis:
-  config-location: classpath:mybatis/mybatis-config.xml
   mapper-locations: classpath:mybatis/mapper/*.xml
+#  config-location: classpath:mybatis/mybatis-config.xml
+#注意点：config-location不能和configuration一起配置，原因是config-location指定mybatis全局配置文件的位置，而configuration
+#对应于mybatis全局配置文件的<configuration></configuration>标签，两者是同一个东西，只能二选一
+#个人更偏向于下面的配置方式，用下面的方式来代替mybatis的全局配置文件
+  configuration:
+    map-underscore-to-camel-case: true
+#对于select标签，下面配置会为resultType和resultMap根据查询结果进行自动映射，默认值为partial
+#    auto-mapping-behavior: none
