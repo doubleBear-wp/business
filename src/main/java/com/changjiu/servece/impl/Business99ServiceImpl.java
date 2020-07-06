@@ -4,6 +4,7 @@ import com.changjiu.bean.Business99;
 import com.changjiu.bean.Business99Data;
 import com.changjiu.dao.Business99Dao;
 import com.changjiu.dao.JDBCDao;
+import com.changjiu.exception.DataIsEmpty;
 import com.changjiu.servece.Business99Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,11 @@ public class Business99ServiceImpl implements Business99Service {
 
     @Override
     public void saveAll(List<Business99> dataList) {
-        business99Dao.insertAll(dataList);
+        if(dataList.size() != 0){
+            business99Dao.insertAll(dataList);
+        }else {
+            throw new DataIsEmpty("插入数据为空");
+        }
     }
 
 /*@Autowired

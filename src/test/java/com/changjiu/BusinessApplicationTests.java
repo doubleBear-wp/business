@@ -3,6 +3,7 @@ package com.changjiu;
 import com.changjiu.bean.Business99;
 import com.changjiu.bean.Business99Data;
 import com.changjiu.dao.Business99Dao;
+import com.changjiu.exception.DataIsEmpty;
 import com.changjiu.servece.Business99Service;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,8 +80,12 @@ class BusinessApplicationTests {
         b1.setUpdateTime(date);
 
         List<Business99> dataList = new ArrayList();
-        dataList.add(b1);
-        business99Service.saveAll(dataList);
+//        dataList.add(b1);
+        try {
+            business99Service.saveAll(dataList);
+        } catch (DataIsEmpty e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Autowired
