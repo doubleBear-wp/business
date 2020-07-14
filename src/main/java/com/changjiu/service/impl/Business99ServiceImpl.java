@@ -9,6 +9,7 @@ import com.changjiu.service.Business99Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,10 +31,25 @@ public class Business99ServiceImpl implements Business99Service {
 
     @Override
     public void saveAll(List<Business99> dataList) {
-        if(dataList.size() != 0){
-            business99Dao.insertAll(dataList);
-        }else {
+        int size = dataList.size();
+        if(size == 0){
             throw new DataIsEmptyException(CommonStateInfoEnum.DATA_IS_EMPTY);
+        }
+
+        if(size < 100){
+            business99Dao.insertAll(dataList);
+        }else{
+            List<Business99> tempList = new ArrayList<>(101);
+            for (int i = 0; i < size; i++) {
+                tempList.add(dataList.get(i));
+                if(i != 0 && i % 100 == 0){
+                    business99Dao.insertAll(tempList);
+                    tempList = new ArrayList<>(101);
+                }
+            }
+            if(tempList.size() != 0){
+                business99Dao.insertAll(tempList);
+            }
         }
     }
 

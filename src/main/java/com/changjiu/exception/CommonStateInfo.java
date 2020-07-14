@@ -6,5 +6,5 @@ package com.changjiu.exception;
  */
 public interface CommonStateInfo {
     String getCode();
-    String  getMsg();
+    String getMsg();
 }

@@ -1,5 +1,6 @@
 package com.changjiu.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.changjiu.bean.Business99;
 import com.changjiu.bean.ResponseData;
 import com.changjiu.exception.CommonStateInfoEnum;
@@ -64,11 +65,11 @@ public class Business99Controller {
     }
 
     @PostMapping("/add")
-    public ResponseData<List<Business99>> addBusiness99(@RequestBody List<Business99> dataList){
-        ResponseData<List<Business99>> responseData = new ResponseData<>();
+    public ResponseData<List<Business99>> addBusiness99(@RequestParam("info") String info){
+        List<Business99> dataList = (List<Business99>) JSON.parse(info);
         //如下方法可能发生异常，用更加优雅的全局异常处理器来处理
         business99Service.saveAll(dataList);
-        return responseData.success(CommonStateInfoEnum.INSERT_DATA_SUCCESS,dataList);
+        return ResponseData.success(CommonStateInfoEnum.INSERT_DATA_SUCCESS,dataList);
     }
 
     @GetMapping("/test")
@@ -78,4 +79,6 @@ public class Business99Controller {
         str.toString();
         return new ResponseData<Null>().success(CommonStateInfoEnum.SUCCESS);
     }
+    
+
 }

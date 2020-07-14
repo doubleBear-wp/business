@@ -1,16 +1,22 @@
 package com.changjiu;
 
+import com.alibaba.fastjson.JSON;
 import com.changjiu.bean.Business99;
 import com.changjiu.bean.Business99Data;
 import com.changjiu.dao.Business99Dao;
 import com.changjiu.exception.customized.DataIsEmptyException;
 import com.changjiu.service.Business99Service;
+import com.changjiu.util.Token;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -81,9 +87,9 @@ class BusinessApplicationTests {
         b1.setUpdateTime(date);
 
         List<Business99> dataList = new ArrayList();
-        /*for (int i = 0; i < 10000; i++) {
-        }*/
-//        dataList.add(b1);
+        for (int i = 0; i < 10000; i++) {
+            dataList.add(b1);
+        }
 
         try {
             business99Service.saveAll(dataList);
@@ -110,7 +116,7 @@ class BusinessApplicationTests {
 
     /*
      *使用java反射，程序运行时通过类加载器加载一个类，通过反射API动态获取类结构信息，具有动态性
-     * 也就是说不通过反射，常规java代码无法实现的功能，因为常规java代码都是程序未运行时，已经确定的情况，
+     * 也就是说不通过反射，常规java代码无法实现的功能，因为常规java代码都是程序未运行时，针对已经确定的情况，
      * 对于只有运行时才能决定的情况，常规java代码无法实现，如m2(String classPath)无法实现创建一个不确定
      * 类的对象，以至于不能获取类结构。此时借助java反射的动态性，就可以动态获取运行时类的信息，这就是java反射，
      * java反射的重要特征就是动态性，动态性体现在运行时获取类信息
@@ -144,6 +150,17 @@ class BusinessApplicationTests {
 
     }
 
+
+    @Test
+    public void test7() throws JsonProcessingException {
+        long time = System.currentTimeMillis();
+        System.out.println("time:"+time);
+
+        String info = "[{\"brand\":\"大众\",\"carSeries\":\"德系\",\"carType\":\"德系\",\"region\":\"北京\",\"price\":\"100000.0\",\"createTime\":\"2020-3-4\",\"updateTime\":\"2020-3-4\"}]";
+        String secret = "0c8466f9d12f45c38a5c4b32297799a4";
+
+        System.out.println(Token.getSign("1",String.valueOf(time),info, secret));
+    }
 
 
 
